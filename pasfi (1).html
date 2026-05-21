@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PASFI – Plano de Assistência Familiar Integrado</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#09090a; --blackm:#111112; --charcoal:#1c1c1e; --charcoal2:#252527;
+  --gold:#c9a84c; --gold2:#e8c96a; --gold3:#f5e4a8; --goldpale:#fdf8e8; --golddim:#7a6420;
+  --white:#fff; --off:#faf9f5; --lgray:#f2f0ea;
+  --bd:rgba(201,168,76,.18); --bl:#e4dcc8;
+  --tl:#1a1a14; --ml:#5a5240; --md:#8a826a;
+  --sg:rgba(201,168,76,.25);
+}
+html{scroll-behavior:smooth}
+body{font-family:"Outfit",sans-serif;background:var(--off);color:var(--tl);line-height:1.7}
+/* TOPBAR */
+.topbar{background:var(--black);padding:.5rem 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.4rem;border-bottom:1px solid var(--bd)}
+.tbbrand{font-family:"Playfair Display",serif;font-size:.76rem;color:var(--gold);letter-spacing:.1em;font-style:italic}
+.tbr{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
+.tc{display:flex;align-items:center;gap:6px;font-size:.67rem;color:var(--md);text-decoration:none;letter-spacing:.05em;transition:color .2s}
+.tc:hover{color:var(--gold2)}
+.tc svg{width:12px;height:12px;stroke:var(--gold);fill:none;stroke-width:1.8}
+.tcsep{width:1px;height:13px;background:var(--bd)}
+/* NAV */
+nav{background:var(--blackm);border-bottom:1px solid var(--bd);padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:80px;position:sticky;top:0;z-index:200;box-shadow:0 4px 30px rgba(0,0,0,.6)}
+.nlogo{display:flex;align-items:center;gap:13px}
+.nicon{width:48px;height:48px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(201,168,76,.07);flex-shrink:0}
+.nicon svg{width:23px;height:23px;fill:var(--gold)}
+.ntxt{display:flex;flex-direction:column;gap:1px}
+.nname{font-family:"Playfair Display",serif;font-size:1.75rem;font-weight:700;color:var(--white);letter-spacing:.06em;line-height:1}
+.nname span{color:var(--gold)}
+.nfull{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--md)}
+.nlinks{display:flex;gap:2rem}
+.nlinks a{font-size:.67rem;letter-spacing:.12em;text-transform:uppercase;color:var(--md);text-decoration:none;font-weight:500;position:relative;padding:.4rem 0;transition:color .2s}
+.nlinks a::after{content:"";position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width .25s}
+.nlinks a:hover{color:var(--gold3)}
+.nlinks a:hover::after{width:100%}
+.ncta{border:1.5px solid var(--gold);color:var(--gold);padding:.62rem 1.6rem;font-size:.67rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;text-decoration:none;transition:all .2s;display:flex;align-items:center;gap:7px}
+.ncta:hover{background:var(--gold);color:var(--black);box-shadow:0 0 22px var(--sg)}
+.ncta svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2}
+/* HERO */
+.hero{display:grid;grid-template-columns:56% 44%;min-height:640px;overflow:hidden}
+.himg{position:relative;overflow:hidden}
+.himg img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.5) sepia(.15)}
+.himg::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(9,9,10,.2) 40%,var(--black) 100%)}
+.hbadge{position:absolute;bottom:2rem;left:2rem;z-index:2;border:1px solid var(--gold);padding:.55rem 1.3rem;background:rgba(9,9,10,.75);backdrop-filter:blur(4px)}
+.hbadge span{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold3)}
+.hcon{background:var(--black);display:flex;flex-direction:column;justify-content:center;padding:4.5rem 3.5rem 4.5rem 3rem;position:relative;overflow:hidden}
+.hcon::before{content:"";position:absolute;top:-100px;right:-80px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 65%);pointer-events:none}
+.hline{display:flex;align-items:center;gap:11px;margin-bottom:1.7rem}
+.hlinebar{width:32px;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+.hline span{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:400}
+.hero h1{font-family:"Playfair Display",serif;font-size:2.7rem;font-weight:700;color:var(--white);line-height:1.18;margin-bottom:.7rem}
+.hero h1 em{color:var(--gold2);font-style:italic;font-weight:400;display:block}
+.hslogan{font-family:"Playfair Display",serif;font-size:.95rem;font-style:italic;color:var(--gold);margin-bottom:1.4rem;opacity:.8}
+.hdesc{color:var(--md);font-size:.84rem;line-height:1.9;font-weight:300;margin-bottom:2.4rem}
+.hbtns{display:flex;flex-direction:column;gap:.8rem}
+.bgold{background:linear-gradient(135deg,var(--golddim),var(--gold),var(--gold2));color:var(--black);padding:.88rem 2.1rem;font-size:.73rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:9px;transition:all .25s;width:fit-content;box-shadow:0 4px 18px var(--sg)}
+.bgold:hover{transform:translateY(-2px);box-shadow:0 8px 28px var(--sg)}
+.bgold svg{width:13px;height:13px;stroke:var(--black);fill:none;stroke-width:2.5}
+.bghost{border:1px solid var(--bd);color:var(--md);padding:.88rem 2.1rem;font-size:.73rem;letter-spacing:.12em;text-transform:uppercase;font-weight:400;text-decoration:none;display:inline-flex;align-items:center;gap:9px;transition:all .2s;width:fit-content}
+.bghost:hover{border-color:var(--gold);color:var(--gold3)}
+.hstats{display:flex;margin-top:2.8rem;border-top:1px solid var(--bd);padding-top:1.8rem}
+.hs{flex:1;padding:0 1.2rem;border-right:1px solid var(--bd)}
+.hs:first-child{padding-left:0}
+.hs:last-child{border:none}
+.hsn{font-family:"Playfair Display",serif;font-size:2.1rem;color:var(--gold2);font-weight:700;line-height:1}
+.hsl{font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--md);margin-top:.3rem}
+/* STRIP */
+.strip{background:var(--charcoal);padding:1rem 2.5rem;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)}
+.si{display:flex;align-items:center;gap:8px;color:var(--md);font-size:.7rem;letter-spacing:.05em;padding:.4rem 1.8rem}
+.si svg{width:13px;height:13px;stroke:var(--gold);fill:none;stroke-width:1.8}
+.sd{width:1px;height:15px;background:var(--bd)}
+/* EYEBROW */
+.ey{font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:var(--golddim);font-weight:600;display:flex;align-items:center;gap:11px;margin-bottom:.8rem}
+.ey::before{content:"";width:26px;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+h2.st{font-family:"Playfair Display",serif;font-size:2.3rem;font-weight:700;color:var(--tl);line-height:1.22;margin-bottom:.9rem}
+.ss{color:var(--ml);font-size:.86rem;font-weight:300;max-width:520px;line-height:1.9}
+/* SOBRE */
+.sobre{padding:5.5rem 2.5rem;background:var(--off)}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:3rem}
+.simgw{position:relative}
+.simgw::before{content:"";position:absolute;top:-10px;left:-10px;right:10px;bottom:10px;border:1px solid var(--gold);z-index:0}
+.simgw img{width:100%;height:410px;object-fit:cover;display:block;position:relative;z-index:1}
+.sbadge{position:absolute;bottom:-1.5rem;right:-1.5rem;z-index:2;background:var(--black);padding:1.3rem 1.7rem;border-left:3px solid var(--gold);text-align:center}
+.sbn{font-family:"Playfair Display",serif;font-size:2.3rem;color:var(--gold2);font-weight:700;line-height:1}
+.sbl{font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--md);margin-top:.3rem}
+.stxt p{color:var(--ml);font-size:.86rem;line-height:1.95;font-weight:300;margin-bottom:.9rem}
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-top:1.7rem}
+.vcard{background:var(--white);border:1px solid var(--bl);border-top:2px solid var(--gold);padding:1rem 1.1rem}
+.vcard h4{font-size:.78rem;font-weight:600;color:var(--tl);margin-bottom:.2rem}
+.vcard p{font-size:.73rem;color:var(--ml);font-weight:300;line-height:1.6}
+/* VIDA */
+.vida{background:var(--blackm);padding:5.5rem 2.5rem;border-top:1px solid var(--bd)}
+.vida .ey{justify-content:center;color:var(--gold)}
+.vida .ey::before{background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.vida h2{font-family:"Playfair Display",serif;font-size:2.2rem;font-weight:700;color:var(--white);text-align:center;margin-bottom:.5rem}
+.vida .vs{color:var(--md);font-size:.86rem;font-weight:300;line-height:1.9;max-width:580px;margin:0 auto 2.2rem;text-align:center}
+.vcards{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:820px;margin:0 auto}
+.vc{background:var(--charcoal);border:1px solid var(--bd);padding:1.9rem 1.7rem;border-top:2px solid var(--gold)}
+.vc h3{font-family:"Playfair Display",serif;font-size:1.1rem;font-weight:600;color:var(--gold3);margin-bottom:.7rem;display:flex;align-items:center;gap:9px}
+.vc h3 svg{width:17px;height:17px;stroke:var(--gold);fill:none;stroke-width:1.8;flex-shrink:0}
+.vc p{font-size:.8rem;color:var(--md);line-height:1.85;font-weight:300}
+.vc ul{list-style:none;margin-top:.7rem}
+.vc ul li{font-size:.8rem;color:var(--md);padding:.26rem 0;display:flex;align-items:center;gap:8px;font-weight:300;border-bottom:1px solid var(--bd)}
+.vc ul li:last-child{border:none}
+.vc ul li::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0}
+/* PLANOS */
+.planos{background:var(--lgray);padding:5.5rem 2.5rem}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--bl);margin-top:2.8rem;box-shadow:0 10px 44px rgba(0,0,0,.09)}
+.plan{padding:2.6rem 2rem;border-right:1px solid var(--bl);background:var(--white);position:relative;transition:box-shadow .2s}
+.plan:hover{box-shadow:0 6px 36px rgba(0,0,0,.1);z-index:1}
+.plan:last-child{border-right:none}
+.pfeat{background:var(--black) !important}
+.pmed{position:absolute;top:0;left:50%;transform:translate(-50%,-50%);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;padding:.35rem 1.3rem;font-weight:700;white-space:nowrap}
+.mbr{background:#b87333;color:#fff}
+.mpr{background:#9a9ea8;color:#fff}
+.mou{background:linear-gradient(90deg,var(--golddim),var(--gold2));color:var(--black)}
+.plan h3{font-family:"Playfair Display",serif;font-size:1.65rem;font-weight:700;margin-bottom:.2rem;margin-top:.7rem}
+.pb h3{color:var(--tl)} .pp h3{color:var(--tl)} .po h3{color:var(--gold2)}
+.ptag{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;font-weight:500;margin-bottom:.8rem}
+.pb .ptag{color:#b87333} .pp .ptag{color:#7a8090} .po .ptag{color:var(--gold)}
+.pbox{padding:1.1rem;margin:.9rem 0;display:flex;align-items:baseline;gap:3px;border-left:3px solid}
+.pb .pbox{background:#fdf9f5;border-color:#b87333}
+.pp .pbox{background:#f8f9fa;border-color:#9a9ea8}
+.po .pbox{background:rgba(201,168,76,.07);border-color:var(--gold)}
+.prs{font-size:.75rem;color:var(--ml);font-weight:400;align-self:flex-start;margin-top:.3rem}
+.pnum{font-family:"Playfair Display",serif;font-size:3rem;font-weight:700;line-height:1}
+.pb .pnum{color:#b87333} .pp .pnum{color:#7a8090} .po .pnum{color:var(--gold2)}
+.pmo{font-size:.68rem;color:var(--ml);align-self:flex-end;margin-bottom:.3rem}
+.pdiv{height:1px;background:var(--bl);margin:.8rem 0}
+.po .pdiv{background:rgba(255,255,255,.08)}
+.psec{font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ml);font-weight:600;margin:.8rem 0 .4rem}
+.po .psec{color:var(--md)}
+.plan ul{list-style:none}
+.plan ul li{font-size:.77rem;padding:.38rem 0;display:flex;align-items:flex-start;gap:8px;border-bottom:1px solid var(--bl);font-weight:300;line-height:1.5;color:var(--ml)}
+.po ul li{color:var(--md);border-color:rgba(255,255,255,.06)}
+.plan ul li:last-child{border:none}
+.plan ul li::before{content:"✦";font-size:.52rem;flex-shrink:0;margin-top:.22rem}
+.pb ul li::before{color:#b87333} .pp ul li::before{color:#9a9ea8} .po ul li::before{color:var(--gold)}
+.po ul li strong{color:var(--gold2);font-weight:600}
+.pbtn{margin-top:1.7rem;display:block;text-align:center;padding:.8rem;font-size:.67rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;text-decoration:none;transition:all .25s}
+.pb .pbtn{border:1.5px solid #b87333;color:#b87333}
+.pb .pbtn:hover{background:#b87333;color:#fff}
+.pp .pbtn{border:1.5px solid #9a9ea8;color:#7a8090}
+.pp .pbtn:hover{background:#9a9ea8;color:#fff}
+.po .pbtn{background:linear-gradient(135deg,var(--golddim),var(--gold),var(--gold2));color:var(--black);border:none;box-shadow:0 4px 16px var(--sg)}
+.po .pbtn:hover{transform:translateY(-2px);box-shadow:0 8px 24px var(--sg)}
+.pnote{text-align:center;margin-top:1.8rem;font-size:.8rem;color:var(--ml);font-weight:300}
+.pnote strong{color:var(--golddim);font-weight:600}
+/* SERVIÇOS */
+.servicos{background:var(--blackm);padding:5.5rem 2.5rem;border-top:1px solid var(--bd)}
+.servicos .ey{color:var(--gold)}
+.servicos h2.st{color:var(--white)}
+.servicos .ss{color:var(--md)}
+.svcg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd);border:1px solid var(--bd);margin-top:2.8rem}
+.svc{background:var(--blackm);padding:2.1rem 1.7rem;transition:background .2s}
+.svc:hover{background:var(--charcoal)}
+.svci{width:42px;height:42px;border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;margin-bottom:1.1rem}
+.svci svg{width:18px;height:18px;stroke:var(--gold);fill:none;stroke-width:1.5}
+.svc h3{font-family:"Playfair Display",serif;font-size:1.1rem;font-weight:600;color:var(--white);margin-bottom:.45rem}
+.svc p{font-size:.77rem;color:var(--md);line-height:1.8;font-weight:300}
+/* GALERIA */
+.galeria{padding:5.5rem 2.5rem;background:var(--off)}
+.gg{display:grid;grid-template-columns:1.5fr 1fr;grid-template-rows:290px 210px;gap:8px;margin-top:2.2rem}
+.gg img{width:100%;height:100%;object-fit:cover;display:block}
+.gtall{grid-row:1/3}
+.gcap{font-size:.63rem;color:var(--ml);letter-spacing:.14em;text-transform:uppercase;text-align:center;margin-top:.8rem;font-weight:300}
+/* DEPOIMENTO */
+.dep{background:var(--black);padding:5rem 2.5rem;text-align:center;position:relative;overflow:hidden;border-top:1px solid var(--bd)}
+.dep::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.04) 0%,transparent 60%)}
+.ds{color:var(--gold2);font-size:1.5rem;letter-spacing:5px;margin-bottom:1.5rem}
+.dq{font-family:"Playfair Display",serif;font-size:2.3rem;font-style:italic;font-weight:400;color:var(--white);line-height:1.5;max-width:570px;margin:0 auto 1.4rem;position:relative}
+.dq::before{content:"C";position:absolute;left:-2rem;top:-.9rem;font-size:7rem;color:rgba(201,168,76,.07);font-style:normal;line-height:1}
+.da{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--md)}
+.dsrc{display:inline-flex;align-items:center;gap:7px;margin-top:.8rem;color:var(--gold);font-size:.68rem}
+.dsrc svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.5}
+/* CONTATO */
+.contato{background:var(--lgray);padding:5.5rem 2.5rem}
+.cg{display:grid;grid-template-columns:1fr 1.3fr;gap:4.5rem;margin-top:3rem;align-items:start}
+.cil{display:flex;flex-direction:column;gap:1.7rem}
+.ci{display:flex;gap:1.1rem;align-items:flex-start}
+.cii{width:45px;height:45px;background:var(--white);border:1px solid var(--bl);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cii svg{width:18px;height:18px;stroke:var(--golddim);fill:none;stroke-width:1.6}
+.cil2{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--golddim);font-weight:600;margin-bottom:.22rem}
+.civ{font-size:.88rem;color:var(--tl);line-height:1.75;font-weight:300}
+.civ strong{font-weight:600;color:var(--black)}
+.socrow{display:flex;gap:.7rem;margin-top:1.7rem;flex-wrap:wrap}
+.soc{display:inline-flex;align-items:center;gap:7px;padding:.58rem 1.1rem;border:1px solid var(--bl);font-size:.68rem;letter-spacing:.07em;color:var(--ml);text-decoration:none;transition:all .2s;background:var(--white);font-weight:500}
+.soc:hover{border-color:var(--gold);color:var(--golddim);background:var(--goldpale)}
+.soc svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8}
+.rbox{background:var(--black);border:1px solid var(--bd);padding:1.4rem 1.7rem;display:flex;align-items:center;gap:1.4rem;margin-top:1.7rem}
+.rbn{font-family:"Playfair Display",serif;font-size:2.8rem;color:var(--gold2);font-weight:700;line-height:1}
+.rbs{color:var(--gold2);font-size:1.1rem;letter-spacing:3px;display:block;margin-top:.2rem}
+.rbi{font-size:.78rem;color:var(--md);line-height:1.7}
+.rbi strong{color:var(--gold3);font-weight:500}
+.emb{background:var(--white);border:1.5px dashed var(--gold);padding:1.3rem 1.5rem;margin-top:1.4rem;display:flex;align-items:flex-start;gap:11px}
+.embt{background:var(--gold2);color:var(--black);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;padding:.28rem .85rem;font-weight:700;white-space:nowrap;flex-shrink:0;margin-top:.1rem}
+.embx{font-size:.8rem;color:var(--ml);line-height:1.7;font-weight:300}
+.embx strong{font-weight:600;color:var(--tl)}
+.mapw{border:1px solid var(--bl);box-shadow:0 4px 24px rgba(0,0,0,.07)}
+.mapw iframe{width:100%;height:400px;border:none;display:block}
+/* FOOTER */
+.fbar{height:3px;background:linear-gradient(90deg,var(--black),var(--gold),var(--gold2),var(--gold),var(--black))}
+footer{background:var(--black)}
+.fb{padding:3.5rem 2.5rem 2rem;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:3.5rem;border-bottom:1px solid var(--bd)}
+.fn{font-family:"Playfair Display",serif;font-size:1.9rem;font-weight:700;color:var(--white);line-height:1;margin-bottom:.3rem}
+.fn span{color:var(--gold)}
+.ff{font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--golddim);margin-bottom:.85rem}
+.fd{font-size:.78rem;color:var(--md);line-height:1.85;font-weight:300;max-width:265px}
+.fc h4{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:1.1rem}
+.fc li{list-style:none;font-size:.78rem;color:var(--md);padding:.26rem 0;font-weight:300}
+.fc li a{color:var(--md);text-decoration:none;transition:color .2s}
+.fc li a:hover{color:var(--gold3)}
+.fbot{padding:1.4rem 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
+.fbot p{font-size:.66rem;color:#252527}
+</style>
+</head>
+<body>
+<div class="fbar"></div>
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="tbbrand">PASFI – Pensando Sempre em Você</div>
+  <div class="tbr">
+    <a href="tel:07535016787" class="tc"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.46 12a19.79 19.79 0 01-3.07-8.67A2 2 0 012.37 1h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 17z"/></svg>75 3501-6787</a>
+    <div class="tcsep"></div>
+    <span class="tc"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Atendimento 24h</span>
+    <div class="tcsep"></div>
+    <span class="tc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Av. Landulfo Alves, 833 – Centro, Paulo Afonso – BA</span>
+  </div>
+</div>
+<!-- NAV -->
+<nav>
+  <div class="nlogo">
+    <div class="nicon"><svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 3c1.7 0 3 1.3 3 3s-1.3 3-3 3-3-1.3-3-3 1.3-3 3-3zm0 14.2c-2.5 0-4.7-1.3-6-3.2.03-2 4-3.1 6-3.1 2 0 5.97 1.1 6 3.1-1.3 1.9-3.5 3.2-6 3.2z"/></svg></div>
+    <div class="ntxt">
+      <div class="nname">PAS<span>FI</span></div>
+      <div class="nfull">Plano de Assistência Familiar Integrado</div>
+    </div>
+  </div>
+  <div class="nlinks">
+    <a href="#sobre">Sobre</a>
+    <a href="#vida">Assistência em Vida</a>
+    <a href="#planos">Planos</a>
+    <a href="#servicos">Serviços</a>
+    <a href="#contato">Contato</a>
+  </div>
+  <a href="tel:07535016787" class="ncta"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.46 12a19.79 19.79 0 01-3.07-8.67A2 2 0 012.37 1h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 17z"/></svg>Ligue Agora</a>
+</nav>
+<!-- HERO -->
+<section class="hero">
+  <div class="himg">
+    <img src="https://images.unsplash.com/photo-1609220136736-443140cffec6?w=1200&q=80" alt="Família PASFI" onerror="this.src='https://images.unsplash.com/photo-1511895426328-dc8714191011?w=1200&q=80'"/>
+    <div class="hbadge"><span>Assistência Familiar Integrada · Paulo Afonso – BA</span></div>
+  </div>
+  <div class="hcon">
+    <div class="hline"><div class="hlinebar"></div><span>Paulo Afonso – Bahia</span></div>
+    <h1>PASFI<em>Pensando Sempre em Você!</em></h1>
+    <div class="hslogan">Plano de Assistência Familiar Integrado</div>
+    <p class="hdesc">Cuidamos da sua família em vida e além — com planos a partir de R$ 35/mês, atendimento humanizado e cobertura completa quando você mais precisa.</p>
+    <div class="hbtns">
+      <a href="#planos" class="bgold"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Ver Planos a partir de R$ 35</a>
+      <a href="tel:07535016787" class="bghost">Falar com um Consultor</a>
+    </div>
+    <div class="hstats">
+      <div class="hs"><div class="hsn">24h</div><div class="hsl">Atendimento</div></div>
+      <div class="hs"><div class="hsn">3</div><div class="hsl">Planos</div></div>
+      <div class="hs"><div class="hsn">5★</div><div class="hsl">Google</div></div>
+    </div>
+  </div>
+</section>
+<!-- STRIP -->
+<div class="strip">
+  <div class="si"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Cobertura completa</div>
+  <div class="sd"></div>
+  <div class="si"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Família inteira inclusa</div>
+  <div class="sd"></div>
+  <div class="si"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>Atendimento 24 horas</div>
+  <div class="sd"></div>
+  <div class="si"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Translado até 1200 km</div>
+  <div class="sd"></div>
+  <div class="si"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>Assistência em vida</div>
+</div>
+<!-- SOBRE -->
+<section class="sobre" id="sobre">
+  <div class="sgrid">
+    <div class="simgw">
+      <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&q=80" alt="Família" onerror="this.src='https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80'"/>
+      <div class="sbadge"><div class="sbn">★5</div><div class="sbl">Google Maps</div></div>
+    </div>
+    <div class="stxt">
+      <div class="ey">Quem Somos</div>
+      <h2 class="st">Cuidado e amparo para toda a sua família</h2>
+      <p>O PASFI nasceu para oferecer à comunidade de Paulo Afonso assistência familiar completa, com preço justo e atendimento verdadeiramente humano.</p>
+      <p>Estamos na Av. Landulfo Alves, 833 – Centro. Em breve inauguramos nossa <strong>Unidade de Velório</strong> na Rua Wilson Pereira, 68 – em frente ao Hospital Irmã Dulce.</p>
+      <p>Nosso diferencial: cuidar da sua família <strong>em vida e além</strong> — descontos em serviços, locação de equipamentos e planos funerários completos.</p>
+      <div class="vgrid">
+        <div class="vcard"><h4>Humanidade</h4><p>Atendimento acolhedor e respeitoso em cada detalhe</p></div>
+        <div class="vcard"><h4>Transparência</h4><p>Planos claros, sem surpresas nem carências ocultas</p></div>
+        <div class="vcard"><h4>Agilidade</h4><p>Resposta imediata 24h quando mais precisar</p></div>
+        <div class="vcard"><h4>Família Inteira</h4><p>Titular, cônjuge, filhos, pais, sogros e +2</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ASSISTÊNCIA EM VIDA -->
+<section class="vida" id="vida">
+  <div class="ey">Muito Além do Funeral</div>
+  <h2>Assistência em Vida</h2>
+  <p class="vs">O PASFI cuida de você enquanto está vivo — com benefícios reais no dia a dia.</p>
+  <div class="vcards">
+    <div class="vc">
+      <h3><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Descontos Exclusivos</h3>
+      <p>Descontos especiais em profissionais liberais e comércios parceiros de Paulo Afonso — <strong style="color:var(--gold3)">sem carência</strong>, disponíveis desde o primeiro dia.</p>
+    </div>
+    <div class="vc">
+      <h3><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>Locação de Equipamentos</h3>
+      <p>Após 30 dias de carência:</p>
+      <ul>
+        <li>Cadeira de rodas</li>
+        <li>Cadeira de banho</li>
+        <li>Andador</li>
+        <li>Muleta e bengala</li>
+        <li>E outros equipamentos</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- PLANOS -->
+<section class="planos" id="planos">
+  <div class="ey">Escolha seu Plano</div>
+  <h2 class="st">Planos completos para toda a família</h2>
+  <p class="ss">Cobertura para: Titular · Cônjuge · Filhos solteiros · Pai e mãe · Sogro(a) · +2 dependentes livres</p>
+  <div class="pgrid">
+    <!-- BRONZE -->
+    <div class="plan pb">
+      <div class="pmed mbr">Plano Bronze</div>
+      <h3>Bronze</h3>
+      <div class="ptag">Cobertura Essencial</div>
+      <div class="pbox"><span class="prs">R$</span><span class="pnum">35</span><span class="pmo">,00/mês</span></div>
+      <div class="psec">Itens inclusos:</div>
+      <ul>
+        <li>Urna mortuária com visor</li>
+        <li>Alça varão / vaãozinho</li>
+        <li>Vestimenta</li>
+        <li>Parametação com velas</li>
+        <li>Ornamentação da urna com flores</li>
+        <li>Kit café · Cortina e tapete</li>
+        <li>Translado até 400 km</li>
+        <li>Anúncio fúnebre – carro de som ou rádio</li>
+      </ul>
+      <div class="pdiv"></div>
+      <div class="psec">Cobertura familiar:</div>
+      <ul>
+        <li>Titular + cônjuge</li>
+        <li>Filhos solteiros</li>
+        <li>Pai e mãe · Sogro(a)</li>
+        <li>+2 dependentes livres</li>
+      </ul>
+      <a href="tel:07535016787" class="pbtn">Contratar Bronze</a>
+    </div>
+    <!-- PRATA -->
+    <div class="plan pp">
+      <div class="pmed mpr">Plano Prata</div>
+      <h3>Prata</h3>
+      <div class="ptag">Cobertura Ampliada</div>
+      <div class="pbox"><span class="prs">R$</span><span class="pnum">50</span><span class="pmo">,00/mês</span></div>
+      <div class="psec">Itens inclusos:</div>
+      <ul>
+        <li>Urna mortuária com visor</li>
+        <li>Alça varão / vaãozinho</li>
+        <li>Vestimenta</li>
+        <li>Parametação com velas</li>
+        <li>Ornamentação da urna com flores</li>
+        <li>Kit café · Cortina e tapete</li>
+        <li>Translado até 600 km</li>
+        <li>Anúncio fúnebre – carro de som ou rádio</li>
+      </ul>
+      <div class="pdiv"></div>
+      <div class="psec">Cobertura familiar:</div>
+      <ul>
+        <li>Titular + cônjuge</li>
+        <li>Filhos solteiros</li>
+        <li>Pai e mãe · Sogro(a)</li>
+        <li>+2 dependentes livres</li>
+      </ul>
+      <a href="tel:07535016787" class="pbtn">Contratar Prata</a>
+    </div>
+    <!-- OURO -->
+    <div class="plan po pfeat">
+      <div class="pmed mou">⭐ Plano Ouro</div>
+      <h3>Ouro</h3>
+      <div class="ptag">Cobertura Premium</div>
+      <div class="pbox"><span class="prs">R$</span><span class="pnum">85</span><span class="pmo">,00/mês</span></div>
+      <div class="psec">Itens inclusos:</div>
+      <ul>
+        <li>Urna mortuária com visor 3/4</li>
+        <li>Alça varão / vaãozinho</li>
+        <li>Vestimenta</li>
+        <li>Parametação com velas</li>
+        <li>Ornamentação da urna com flores</li>
+        <li>Kit café · Cortina e tapete</li>
+        <li><strong>Coroa de flores</strong></li>
+        <li><strong>Translado até 1200 km</strong></li>
+        <li>Anúncio fúnebre – carro de som ou rádio</li>
+        <li><strong>Custeio da taxa de sepultamento</strong></li>
+      </ul>
+      <div class="pdiv"></div>
+      <div class="psec">Cobertura familiar:</div>
+      <ul>
+        <li>Titular + cônjuge</li>
+        <li>Filhos solteiros</li>
+        <li>Pai e mãe · Sogro(a)</li>
+        <li>+2 dependentes livres</li>
+      </ul>
+      <a href="tel:07535016787" class="pbtn">Contratar Ouro</a>
+    </div>
+  </div>
+  <p class="pnote">Dúvidas? Ligue: <strong>75 3501-6787</strong> · Atendimento 24 horas, todos os dias.</p>
+</section>
+<!-- SERVIÇOS -->
+<section class="servicos" id="servicos">
+  <div class="ey">Nossos Serviços</div>
+  <h2 class="st">Tudo que sua família precisa</h2>
+  <p class="ss">Do acompanhamento em vida ao cuidado na despedida — o PASFI está ao seu lado.</p>
+  <div class="svcg">
+    <div class="svc"><div class="svci"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><h3>Plano Familiar</h3><p>Cobertura para toda a família: titular, cônjuge, filhos, pais, sogros e dois dependentes livres.</p></div>
+    <div class="svc"><div class="svci"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div><h3>Assistência em Vida</h3><p>Descontos em parceiros e locação de equipamentos de saúde sem carência.</p></div>
+    <div class="svc"><div class="svci"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><h3>Translado</h3><p>Remoção e transporte com sigilo — até 400, 600 ou 1200 km conforme o plano escolhido.</p></div>
+    <div class="svc"><div class="svci"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><h3>Velório Completo</h3><p>Urna, ornamentação com flores, velas, cortina, tapete, kit café e todo suporte necessário.</p></div>
+    <div class="svc"><div class="svci"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg></div><h3>Assessoria Documental</h3><p>Certidão de óbito, registros e toda a burocracia para aliviar sua família no momento difícil.</p></div>
+    <div class="svc"><div class="svci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><h3>Anúncio Fúnebre</h3><p>Divulgação do falecimento por carro de som ou rádio, incluído em todos os planos.</p></div>
+  </div>
+</section>
+<!-- GALERIA -->
+<section class="galeria" id="galeria">
+  <div class="ey">Nossa Estrutura</div>
+  <h2 class="st">Espaço preparado para acolher</h2>
+  <p class="ss">Ambiente respeitoso e acolhedor — e em breve nossa nova Unidade de Velório.</p>
+  <div class="gg">
+    <img class="gtall" src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80" alt="Sede PASFI" onerror="this.src='https://images.unsplash.com/photo-1486325212027-8081e485255e?w=900&q=80'"/>
+    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700&q=80" alt="Atendimento" onerror="this.src='https://images.unsplash.com/photo-1523438885200-e635ba2c371e?w=700&q=80'"/>
+    <img src="https://images.unsplash.com/photo-1416339306562-f3d12fefd36f?w=700&q=80" alt="Ornamentação" onerror="this.src='https://images.unsplash.com/photo-1501426026826-31c667bdf23d?w=700&q=80'"/>
+  </div>
+  <p class="gcap">PASFI · Av. Landulfo Alves, 833 · Centro · Paulo Afonso – BA</p>
+</section>
+<!-- DEPOIMENTO -->
+<section class="dep">
+  <div class="ds">★★★★★</div>
+  <div class="dq">Ótimo plano!</div>
+  <div class="da">Miguel Lima · Guia Local Google · 216 avaliações</div>
+  <div class="dsrc"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>Avaliação verificada no Google Maps · 5,0 / 5,0</div>
+</section>
+<!-- CONTATO -->
+<section class="contato" id="contato">
+  <div class="ey">Fale Conosco</div>
+  <h2 class="st">Estamos aqui para você, sempre</h2>
+  <div class="cg">
+    <div>
+      <div class="cil">
+        <div class="ci">
+          <div class="cii"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.46 12a19.79 19.79 0 01-3.07-8.67A2 2 0 012.37 1h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 17z"/></svg></div>
+          <div><div class="cil2">Telefone</div><div class="civ"><strong>75 3501-6787</strong><br>Atendimento 24 horas</div></div>
+        </div>
+        <div class="ci">
+          <div class="cii"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="cil2">Endereço</div><div class="civ"><strong>Av. Landulfo Alves, 833</strong><br>Centro · Paulo Afonso – BA</div></div>
+        </div>
+        <div class="ci">
+          <div class="cii"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+          <div><div class="cil2">Horário</div><div class="civ"><strong>Todos os dias:</strong> 24 horas<br>Emergências sempre atendidas</div></div>
+        </div>
+      </div>
+      <div class="socrow">
+        <a href="#" class="soc"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>Pasfi Pa</a>
+        <a href="#" class="soc"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@pasfi_pa</a>
+      </div>
+      <div class="rbox">
+        <div><div class="rbn">5,0</div><span class="rbs">★★★★★</span></div>
+        <div class="rbi">Avaliação verificada no Google Maps<br><strong>PASFI – Paulo Afonso – BA</strong></div>
+      </div>
+      <div class="emb">
+        <span class="embt">Em Breve</span>
+        <div class="embx"><strong>Nova Unidade de Velório</strong><br>Rua Wilson Pereira, nº 68 – em frente ao Hospital Irmã Dulce, Paulo Afonso – BA.</div>
+      </div>
+    </div>
+    <div class="mapw">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3877!2d-38.215!3d-9.402!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x70931363399d57f%3A0x0!2sAv.+Landulfo+Alves%2C+833+-+Centro%2C+Paulo+Afonso+-+BA!5e0!3m2!1spt!2sbr!4v1714000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</section>
+<!-- FOOTER -->
+<footer>
+  <div class="fbar"></div>
+  <div class="fb">
+    <div>
+      <div class="fn">PAS<span>FI</span></div>
+      <div class="ff">Plano de Assistência Familiar Integrado</div>
+      <p class="fd">Pensando Sempre em Você! Cuidando das famílias de Paulo Afonso com respeito, dignidade e profissionalismo — em vida e além.</p>
+    </div>
+    <div class="fc">
+      <h4>Navegação</h4>
+      <ul>
+        <li><a href="#sobre">Sobre nós</a></li>
+        <li><a href="#vida">Assistência em Vida</a></li>
+        <li><a href="#planos">Planos</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#galeria">Estrutura</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </div>
+    <div class="fc">
+      <h4>Contato</h4>
+      <ul>
+        <li>75 3501-6787</li>
+        <li>Av. Landulfo Alves, 833</li>
+        <li>Centro · Paulo Afonso – BA</li>
+        <li>Facebook: Pasfi Pa</li>
+        <li>Instagram: @pasfi_pa</li>
+        <li>Atendimento 24 horas</li>
+      </ul>
+    </div>
+  </div>
+  <div class="fbot">
+    <p>© 2025 PASFI – Plano de Assistência Familiar Integrado · Todos os direitos reservados</p>
+    <p>Paulo Afonso · Bahia · Brasil</p>
+  </div>
+</footer>
+</body>
+</html>
